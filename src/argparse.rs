@@ -356,14 +356,14 @@ macro_rules! py_argparse_impl {
     ($py:expr, $fname:expr, $args:expr, $kwargs:expr, $body:block,
         [ $( { $pname:ident : $ptype:ty = $detail:tt } )* ]
     ) => {{
-        const PARAMS: &'static [$crate::argparse::ParamDescription<'static>] = &[
+        const params: &'static [$crate::argparse::ParamDescription<'static>] = &[
             $(
                 $crate::py_argparse_param_description! { $pname : $ptype = $detail }
             ),*
         ];
         let py: $crate::Python = $py;
         let mut output = [$( $crate::py_replace_expr!($pname None) ),*];
-        match $crate::argparse::parse_args(py, $fname, PARAMS, $args, $kwargs, &mut output) {
+        match $crate::argparse::parse_args(py, $fname, params, $args, $kwargs, &mut output) {
             Ok(()) => {
                 // Experimental slice pattern syntax would be really nice here (#23121)
                 //let [$(ref $pname),*] = output;

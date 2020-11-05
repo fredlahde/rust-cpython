@@ -87,11 +87,11 @@ macro_rules! py_class_instance_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const LOCATION: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
-                LOCATION, $crate::_detail::PyObjectCallbackConverter,
+                location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
-                    $crate::py_argparse_raw!(py, Some(LOCATION), args, kwargs,
+                    $crate::py_argparse_raw!(py, Some(location), args, kwargs,
                         [ $( { $pname : $ptype = $detail } )* ]
                         {
                             let slf = $crate::PyObject::from_borrowed_ptr(py, slf).unchecked_cast_into::<$class>();
@@ -141,11 +141,11 @@ macro_rules! py_class_class_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const LOCATION: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
-                LOCATION, $crate::_detail::PyObjectCallbackConverter,
+                location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
-                    $crate::py_argparse_raw!(py, Some(LOCATION), args, kwargs,
+                    $crate::py_argparse_raw!(py, Some(location), args, kwargs,
                         [ $( { $pname : $ptype = $detail } )* ]
                         {
                             let cls = $crate::PyObject::from_borrowed_ptr(py, cls).unchecked_cast_into::<$crate::PyType>();
@@ -198,11 +198,11 @@ macro_rules! py_class_static_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const LOCATION: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
-                LOCATION, $crate::_detail::PyObjectCallbackConverter,
+                location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
-                    $crate::py_argparse_raw!(py, Some(LOCATION), args, kwargs,
+                    $crate::py_argparse_raw!(py, Some(location), args, kwargs,
                         [ $( { $pname : $ptype = $detail } )* ]
                         {
                             $class::$f(py $(, $pname )* )
