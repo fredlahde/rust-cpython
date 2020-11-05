@@ -356,7 +356,7 @@ macro_rules! py_argparse_impl {
     ($py:expr, $fname:expr, $args:expr, $kwargs:expr, $body:block,
         [ $( { $pname:ident : $ptype:ty = $detail:tt } )* ]
     ) => {{
-        const params: &'static [$crate::argparse::ParamDescription<'static>] = &[
+        let params: &'static [$crate::argparse::ParamDescription<'static>] = &[
             $(
                 $crate::py_argparse_param_description! { $pname : $ptype = $detail }
             ),*

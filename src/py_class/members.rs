@@ -87,7 +87,7 @@ macro_rules! py_class_instance_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
@@ -141,7 +141,7 @@ macro_rules! py_class_class_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
@@ -198,7 +198,7 @@ macro_rules! py_class_static_method {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {

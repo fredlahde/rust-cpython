@@ -136,7 +136,7 @@ macro_rules! py_class_wrap_newfunc {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
@@ -314,7 +314,7 @@ macro_rules! py_class_call_slot_impl_with_ref {
 macro_rules! py_class_unary_slot {
     ($class:ident :: $f:ident, $res_type:ty, $conv:expr) => {{
         unsafe extern "C" fn wrap_unary(slf: *mut $crate::_detail::ffi::PyObject) -> $res_type {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(location, $conv, |py| {
                 let slf =
                     $crate::PyObject::from_borrowed_ptr(py, slf).unchecked_cast_into::<$class>();
@@ -335,7 +335,7 @@ macro_rules! py_class_binary_slot {
             slf: *mut $crate::_detail::ffi::PyObject,
             arg: *mut $crate::_detail::ffi::PyObject,
         ) -> $res_type {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(location, $conv, |py| {
                 let slf =
                     $crate::PyObject::from_borrowed_ptr(py, slf).unchecked_cast_into::<$class>();
@@ -370,7 +370,7 @@ macro_rules! py_class_ternary_slot {
             arg1: *mut $crate::_detail::ffi::PyObject,
             arg2: *mut $crate::_detail::ffi::PyObject,
         ) -> $res_type {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(location, $conv, |py| {
                 let slf =
                     $crate::PyObject::from_borrowed_ptr(py, slf).unchecked_cast_into::<$class>();
@@ -433,7 +433,7 @@ macro_rules! py_class_richcompare_slot {
             arg: *mut $crate::_detail::ffi::PyObject,
             op: $crate::_detail::libc::c_int,
         ) -> $res_type {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(location, $conv, |py| {
                 let slf =
                     $crate::PyObject::from_borrowed_ptr(py, slf).unchecked_cast_into::<$class>();
@@ -474,7 +474,7 @@ macro_rules! py_class_contains_slot {
             slf: *mut $crate::_detail::ffi::PyObject,
             arg: *mut $crate::_detail::ffi::PyObject,
         ) -> $crate::_detail::libc::c_int {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location,
                 $crate::py_class::slots::BoolConverter,
@@ -520,7 +520,7 @@ macro_rules! py_class_binary_numeric_slot {
             lhs: *mut $crate::_detail::ffi::PyObject,
             rhs: *mut $crate::_detail::ffi::PyObject,
         ) -> *mut $crate::_detail::ffi::PyObject {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location,
                 $crate::_detail::PyObjectCallbackConverter,
@@ -673,7 +673,7 @@ macro_rules! py_class_call_slot {
             kwargs: *mut $crate::_detail::ffi::PyObject)
         -> *mut $crate::_detail::ffi::PyObject
         {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "()");
             $crate::_detail::handle_callback(
                 location, $crate::_detail::PyObjectCallbackConverter,
                 |py| {
@@ -713,7 +713,7 @@ macro_rules! py_class_prop_getter {
             slf: *mut $crate::_detail::ffi::PyObject,
             _closure: *mut $crate::_detail::libc::c_void,
         ) -> *mut $crate::_detail::ffi::PyObject {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "{}");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "{}");
             $crate::_detail::handle_callback(
                 location,
                 $crate::_detail::PyObjectCallbackConverter,
@@ -739,7 +739,7 @@ macro_rules! py_class_prop_setter {
             obj: *mut $crate::_detail::ffi::PyObject,
             _closure: *mut $crate::_detail::libc::c_void,
         ) -> $crate::_detail::libc::c_int {
-            const location: &'static str = concat!(stringify!($class), ".", stringify!($f), "{}");
+            let location: &'static str = concat!(stringify!($class), ".", stringify!($f), "{}");
             $crate::_detail::handle_callback(
                 location,
                 $crate::py_class::slots::UnitCallbackConverter,
